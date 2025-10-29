@@ -1,22 +1,22 @@
-def nazwa_nowej_funkcji(operacja, users_data):
+def nazwa_nowej_funkcji(operacja, users_data) -> None:
     match operacja:
         case "wyswietl":
             wyswietlanie_znajomych(users_data)
         case "dodanie":
             print("Wybano funkcje dodawania znajomego")
-            nowe_imie:str = input("Podaj imie: ")
-            nowa_lokacja:str = input("Podaj lokalizacje: ")
-            nowa_ilosc_postow:int = int(input("Podaj ilość postów: "))
+            name:str = input("Podaj imie: ")
+            location:str = input("Podaj lokalizacje: ")
+            posts:int = int(input("Podaj ilość postów: "))
             users_data.append({
-                "alias_name": nowe_imie,
-                "location": nowa_lokacja,
-                "posts": nowa_ilosc_postow
+                "alias_name": name,
+                "location": location,
+                "posts": posts
             })
             wyswietlanie_znajomych(users_data)
 
 
-def wyswietlanie_znajomych(users_data_second):
-    for user in users_data_second:
+def wyswietlanie_znajomych(users_data) -> None:
+    for user in users_data:
         print(f"Twój znajomy {user["alias_name"]} z {user["location"]} opublikował {user['posts']} postów")
 
 
@@ -44,9 +44,9 @@ while True:
         case 0:
             break
         case 1:
-            nazwa_nowej_funkcji("wyswietl")
+            nazwa_nowej_funkcji("wyswietl", users)
         case 2:
-            nazwa_nowej_funkcji("dodanie")
+            nazwa_nowej_funkcji("dodanie", users)
         case 3:
             print("Wybrano funkcje usuwania znajomych")
         case 4:
