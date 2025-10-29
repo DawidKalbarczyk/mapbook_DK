@@ -1,8 +1,8 @@
 def nazwa_nowej_funkcji(operacja, users_data) -> None:
     match operacja:
-        case "wyswietl":
+        case "display":
             wyswietlanie_znajomych(users_data)
-        case "dodanie":
+        case "add":
             print("Wybano funkcje dodawania znajomego")
             name:str = input("Podaj imie: ")
             location:str = input("Podaj lokalizacje: ")
@@ -13,7 +13,12 @@ def nazwa_nowej_funkcji(operacja, users_data) -> None:
                 "posts": posts
             })
             wyswietlanie_znajomych(users_data)
-
+        case "delete":
+            tmp_name:str = input("Podaj imie uzytkownika do usunięcia ze znajomych: ")
+            for user in users_data:
+                if user["alias_name"] == tmp_name:
+                    users_data.remove(user)
+            wyswietlanie_znajomych(users_data)
 
 def wyswietlanie_znajomych(users_data) -> None:
     for user in users_data:
@@ -44,11 +49,11 @@ while True:
         case 0:
             break
         case 1:
-            nazwa_nowej_funkcji("wyswietl", users)
+            nazwa_nowej_funkcji("display", users)
         case 2:
-            nazwa_nowej_funkcji("dodanie", users)
+            nazwa_nowej_funkcji("add", users)
         case 3:
-            print("Wybrano funkcje usuwania znajomych")
+            nazwa_nowej_funkcji("delete", users)
         case 4:
             print("Wybrano funkcje aktualizowania znajomych")
 
