@@ -154,7 +154,7 @@ buttonPokazSzczegoly.grid(row=2, column = 0)
 buttonUsunObiekt = Button(ramkaListaObiektów, text="Usuń obiekt", command=lambda: delete_user(users))   #Musi być lambda
 buttonUsunObiekt.grid(row=2, column=1)
 
-buttonEdytujObiekt = Button(ramkaListaObiektów, text="Edytuj obiekt", command=lambda: edit_user(users, i))
+buttonEdytujObiekt = Button(ramkaListaObiektów, text="Edytuj obiekt", command=lambda: edit_user(users))
 buttonEdytujObiekt.grid(row=2, column=2)
 
 
