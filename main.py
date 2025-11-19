@@ -48,10 +48,10 @@ ramkaFormularz = Frame(root)
 ramkaSzczegolyObiektu = Frame(root)
 ramkaMapa = Frame(root)
 
-ramkaListaObiektów.grid(row = 0, column = 0)
+ramkaListaObiektów.grid(row = 0, column = 0, columnspan=2)
 ramkaFormularz.grid(row = 0, column = 1)
-ramkaSzczegolyObiektu.grid(row = 1, column = 0)
-ramkaMapa.grid(row = 2, column = 0)
+ramkaSzczegolyObiektu.grid(row = 1, column = 0, columnspan=2)
+ramkaMapa.grid(row = 2, column = 0, columnspan=2)
 
 #RAMKA LISTA OBIEKTÓW
 labelListaObiektow = Label(ramkaListaObiektów, text="Lista Obiektów")
