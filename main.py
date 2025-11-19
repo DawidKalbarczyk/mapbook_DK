@@ -35,6 +35,9 @@ from tkinter import *
 import tkintermapview
 import requests
 from  bs4 import BeautifulSoup
+
+from mapbook_lib.controller import get_coordinates
+
 users:list = []
 
 class User:
@@ -44,6 +47,7 @@ class User:
         self.posts = posts
         self.img_url = img_url
         self.coords = self.get_coordinates()
+        self.marker = map_widget.set_marker(self.coords[0], self.coords[1], text=self.name)
 
 
 
@@ -91,10 +95,14 @@ def user_info(users_data:list)->None:
         listBoxListaObiektow.insert(idx, f"{idx+1}. {user.name} {user.location} {user.posts}")
 
 
+
+
 def delete_user(users_data:list)->None:
     i = listBoxListaObiektow.index(ACTIVE)
+    users_data[i].marker.delete()
     users_data.pop(i)
     user_info(users_data)
+
 
 def user_details(users_data:list):
     i = listBoxListaObiektow.index(ACTIVE)
@@ -102,6 +110,9 @@ def user_details(users_data:list):
     labelLokalizacjaSzczegolyObiektuWartosc.config(text=users[i].location)
     labelPostySzczegolyObiektuWartosc.config(text=users[i].posts)
     labelIMG_URL.config(text=users[i].img_url)
+
+    map_widget.set_zoom(13)
+    map_widget.set_position(users_data[i].coords[0], users_data[i].coords[1])
 
 def edit_user(users_data:list):
     i = listBoxListaObiektow.index(ACTIVE)
@@ -118,6 +129,15 @@ def update_user(users_data:list, i)->None:
     users_data[i].location = entryLokalizacja.get()
     users_data[i].posts = entryPosty.get()
     users_data[i].img_url = entryIMG_URL.get()
+
+    users_data[i].coords = users_data[i].get_coordinates()
+    # users_data[i].marker.delete()  - łatwiej ale usuwa
+    users_data[i].marker.set_position(users_data[i].coords[0], users_data[i].coords[1])
+    users_data[i].marker.set_text(text = users_data[i].name)
+
+
+
+
     user_info(users_data)
     buttonDodajObiekt.config( text="Dodaj obiekt", command=lambda: add_user(users))
 
@@ -126,6 +146,11 @@ def update_user(users_data:list, i)->None:
     entryPosty.delete(0, END)
     entryIMG_URL.delete(0, END)
     entryImie.focus()
+
+
+
+
+
 root = Tk()
 
 root.title("Mapbook")
@@ -229,10 +254,10 @@ labelPostySzczegolyObiektuWartosc.grid(row=1, column=5)
 
 # RAMKA MAPY
 
-mapWidget = tkintermapview.TkinterMapView(ramkaMapa, width = 1025, height=600, corner_radius=0)
-mapWidget.set_position(52.0, 21.0)
-mapWidget.set_zoom(6)
-mapWidget.grid(row=0, column=0)
+map_widget = tkintermapview.TkinterMapView(ramkaMapa, width = 1025, height=600, corner_radius=0)
+map_widget.set_position(52.0, 21.0)
+map_widget.set_zoom(6)
+map_widget.grid(row=0, column=0)
 
 
 
